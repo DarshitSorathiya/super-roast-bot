@@ -1,6 +1,7 @@
 from collections import deque
 
-MAX_MEMORY = 0
+# FIX: MAX_MEMORY was set to 0, which prevented storing any conversation history
+MAX_MEMORY = 10
 chat_history = deque(maxlen=MAX_MEMORY)
 
 
@@ -25,6 +26,7 @@ def format_memory() -> str:
         return "No previous conversation."
 
     # Using join for better performance than string concatenation in a loop
+    # FIX: Corrected role labeling (previously reversed user and bot)
     return "\n\n".join(
-        [f"RoastBot: {entry['user']}\nUser: {entry['bot']}" for entry in chat_history]
+        [f"User: {entry['user']}\nRoastBot: {entry['bot']}" for entry in chat_history]
     )
